@@ -17,7 +17,7 @@ body {
 
 header {
   grid-column: span 12;
-  background-color: #5f5d5d;
+  background-color: lightgreen;
   padding: 1rem;
   color: blueviolet;
 }
@@ -114,11 +114,14 @@ header h1 span.yellow {
 
 nav {
   grid-column: span 12;
-  background-color: darkcyan;
+  background-color: mediumseagreen;
 }
 
 nav #settings {
   padding: 0 0.5rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 nav #settings button {
@@ -131,6 +134,28 @@ nav #settings button {
 nav #settings button:hover {
   color: white;
   background-color: green;
+}
+
+nav #settings #dropdown {
+  display: none;
+  position: absolute;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+nav #settings #dropdown input {
+  height: 2rem;
+}
+
+nav #settings #dropdown button {
+  height: 2rem;
+}
+
+nav #settings:hover #dropdown {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 section {
@@ -164,9 +189,16 @@ section #board .block {
 }
 
 section#log {
-  -ms-grid-column: 8;
+  -ms-grid-column: 9;
   -ms-grid-column-span: 4;
-  grid-column: 8 / span 4;
+  grid-column: 9 / span 4;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .red {

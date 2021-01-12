@@ -23,13 +23,13 @@ header{
         display: flex;
         justify-content: center;
         span.red{
-            animation: 1s linear 0.5s move_right;
+            animation: 1s linear 0.2s move_right;
         }
         span.blue{
-            animation : 1s linear 0.5s move_left;
+            animation : 1s linear 0.2s move_left;
         }
         span.yellow{
-            animation : 1.6s ease-in 0.5s move_down;
+            animation : 1.6s ease-in 0.2s move_down;
         }
 
         @keyframes move_right{

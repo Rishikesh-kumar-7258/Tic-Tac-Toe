@@ -32,18 +32,18 @@ header h1 {
 }
 
 header h1 span.red {
-  -webkit-animation: 1s linear 0.5s move_right;
-          animation: 1s linear 0.5s move_right;
+  -webkit-animation: 1s linear 0.2s move_right;
+          animation: 1s linear 0.2s move_right;
 }
 
 header h1 span.blue {
-  -webkit-animation: 1s linear 0.5s move_left;
-          animation: 1s linear 0.5s move_left;
+  -webkit-animation: 1s linear 0.2s move_left;
+          animation: 1s linear 0.2s move_left;
 }
 
 header h1 span.yellow {
-  -webkit-animation: 1.6s ease-in 0.5s move_down;
-          animation: 1.6s ease-in 0.5s move_down;
+  -webkit-animation: 1.6s ease-in 0.2s move_down;
+          animation: 1.6s ease-in 0.2s move_down;
 }
 
 @-webkit-keyframes move_right {

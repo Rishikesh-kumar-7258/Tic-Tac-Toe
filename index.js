@@ -10,6 +10,6 @@ function setcolor()
         console.log(blocks[i]);
         blocks[i].style.backgroundColor = picker.value;
     }
-    log.innerHTML +=`<p>The color of the board is changed to ${picker.value}</p>`;
+    log.innerHTML +=`<p>Color of the board is changed to ${picker.value}</p>`;
     console.log(picker.value);
 }

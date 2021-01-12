@@ -112,6 +112,63 @@ header h1 span.yellow {
   }
 }
 
+nav {
+  grid-column: span 12;
+  background-color: darkcyan;
+}
+
+nav #settings {
+  padding: 0 0.5rem;
+}
+
+nav #settings button {
+  border: 1px solid green;
+  color: green;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+nav #settings button:hover {
+  color: white;
+  background-color: green;
+}
+
+section {
+  -ms-grid-column: 5;
+  -ms-grid-column-span: 3;
+  grid-column: 5/ span 3;
+  margin-top: 2rem;
+  height: 70vh;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  -ms-grid-rows: (1fr)[3];
+      grid-template-rows: repeat(3, 1fr);
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+section #board {
+  grid-column: span 3;
+  grid-row: span 2;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+}
+
+section #board .block {
+  background-color: darkgoldenrod;
+  border: 2px solid red;
+}
+
+section#log {
+  -ms-grid-column: 8;
+  -ms-grid-column-span: 4;
+  grid-column: 8 / span 4;
+}
+
 .red {
   color: red;
 }
@@ -121,6 +178,6 @@ header h1 span.yellow {
 }
 
 .blue {
-  color: blueviolet;
+  color: darkblue;
 }
 /*# sourceMappingURL=index.css.map */

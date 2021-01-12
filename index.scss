@@ -62,6 +62,48 @@ header{
     }
 }
 
+nav{
+    grid-column: span 12;
+    background-color: darkcyan;
+    #settings{
+        padding: 0 0.5rem;
+        button{
+            border: 1px solid green;
+            color: green;
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+        button:hover{
+            color: white;
+            background-color: green;
+        }
+    }
+}
+
+section{
+    grid-column:  5/ span 3;
+    // border: 1px solid black;
+    margin-top: 2rem;
+    height: 70vh;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    align-content: center;
+    #board{
+        grid-column: span 3;
+        grid-row: span 2;
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        .block{
+            background-color: darkgoldenrod;
+            border: 2px solid red;
+        }
+    }
+}
+section#log{
+    grid-column: 8 / span 4;
+}
+
 //utilities
 .red{
     color: red;
@@ -70,5 +112,5 @@ header{
     color: yellow;
 }
 .blue{
-    color: blueviolet;
+    color: darkblue;
 }

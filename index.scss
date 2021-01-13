@@ -135,3 +135,27 @@ section#log{
 .blue{
     color: darkblue;
 }
+
+@media screen and (max-width:1000px)
+{
+    section{
+        grid-column: 3 / span 8;
+        height: 50vh;
+        grid-template-rows: 1fr;
+        // border: 1px solid green;
+    }
+    section#log{
+        grid-column:  3 / span 8;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width:500px)
+{
+    section{
+        grid-column: span 12;
+    }
+    section#log{
+        grid-column: span 12;
+    }
+}

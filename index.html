@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Name : Tic-tac-toe game, published by : Rishikesh Kumar
+    <meta name="description" content="Name : Tic-tac-toe ,game, published by : Rishikesh Kumar |
                                       This is just a project showcase for beginners">
     <!-- included our stylesheetfile -->
     <link rel="stylesheet" href="index.css">
@@ -21,11 +21,15 @@
             <button><h3>Change color</h3></button>
             <div id="dropdown">
                 <input type="color" name="color" id="color">
-                <button onclick="setcolor()">Set</button>
+                <div id="buttons">
+                    <button onclick="setcolor()">Set Board</button>
+                    <button onclick="setborder()">Set Border</button>
+                </div>
             </div>
         </div>
     </nav>
 
+    <!-- the game board -->
     <section>
         <div id="board">
             <div class="block"></div>
@@ -39,6 +43,9 @@
             <div class="block"></div>
         </div>
     </section>
-    <section id="log"></section>
+    <!-- logging section -->
+    <section id="log">
+        <h1>Logs</h1>
+    </section>
 </body>
 </html>

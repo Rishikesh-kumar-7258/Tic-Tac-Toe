@@ -93,6 +93,7 @@ nav{
     }
     #settings:hover #dropdown{
         display: flex;
+        flex-direction: column;
     }
 }
 
@@ -107,6 +108,7 @@ section{
     align-content: center;
     
     #board{
+        cursor: pointer;
         grid-column: span 3;
         grid-row: span 2;
         display: grid;
@@ -123,6 +125,9 @@ section#log{
     // border: 1px solid green;
     display: flex;
     flex-direction: column;
+    h1{
+        color: brown;
+    }
 }
 
 //utilities

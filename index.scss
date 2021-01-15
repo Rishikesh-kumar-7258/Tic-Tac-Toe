@@ -1,3 +1,5 @@
+
+//defining css default css for our code
 *{
     margin: 0;
     padding: 0;
@@ -5,23 +7,29 @@
     list-style: none;
 }
 
+//defining css for the body
 body{
     width: 100vw;
     height: 100vh;
     display: grid;
     grid-template-columns: repeat(12,1fr);
     height: 10vh;
+    background-color:rgb(90, 122, 90);
 }
 
+//css for the header file
 header{
     grid-column: span 12;
     background-color:lightgreen;
     padding: 1rem;
     color: blueviolet;
+    //css for h1 in our header file
     h1{
         // border: 1px solid orange;
         display: flex;
         justify-content: center;
+        
+        //css for the different parts of the word and animating them
         span.red{
             animation: 1s linear 0.2s move_right;
         }
@@ -62,12 +70,17 @@ header{
     }
 }
 
+//defining css for the navbar
 nav{
     grid-column: span 12;
     background-color:mediumseagreen;
+
+    //defining css for our settings menu
     #settings{
         padding: 0 0.5rem;
         width: fit-content;
+
+        //css for the buttons inside the setting menu
         button{
             border: 1px solid green;
             color: green;
@@ -79,6 +92,7 @@ nav{
             background-color: green;
         }
 
+        //css for the color picker and options
         #dropdown{
             display: none;
             position: absolute;
@@ -102,6 +116,7 @@ nav{
     }
 }
 
+//css for the game area
 section{
     grid-column:  5/ span 3;
     // border: 1px solid black;
@@ -113,6 +128,7 @@ section{
     align-content: center;
     // border: 1px solid green;
 
+    //css for the buttons downside of the board 
     #fill_opt{
         margin: auto;
         display: flex;
@@ -135,6 +151,7 @@ section{
         }
     }
     
+    //css for our board
     #board{
         cursor: pointer;
         grid-column: span 3;
@@ -148,7 +165,7 @@ section{
             grid-column: span 1;
             grid-row: span 1;
             background-color: darkgoldenrod;
-            border: 2px solid red;
+            border: 2px solid darkred;
             display: grid;
             text-align: center;
             align-content : center;
@@ -156,6 +173,8 @@ section{
         }
     }
 }
+
+//css for our logging section
 section#log{
     grid-column: 9 / span 4;
     // border: 1px solid green;
@@ -191,6 +210,7 @@ section#log{
     color: darkblue;
 }
 
+//making our webpage more responsive
 @media screen and (max-width:1000px)
 {
     section{

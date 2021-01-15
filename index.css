@@ -13,6 +13,7 @@ body {
   -ms-grid-columns: (1fr)[12];
       grid-template-columns: repeat(12, 1fr);
   height: 10vh;
+  background-color: #5a7a5a;
 }
 
 header {
@@ -241,7 +242,7 @@ section #board .block {
   grid-column: span 1;
   grid-row: span 1;
   background-color: darkgoldenrod;
-  border: 2px solid red;
+  border: 2px solid darkred;
   display: -ms-grid;
   display: grid;
   text-align: center;

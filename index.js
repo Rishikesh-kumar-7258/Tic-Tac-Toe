@@ -1,13 +1,17 @@
 console.log("you are doing great!");
+
+//making some variables for the code
 let boardcolor = "#b8860b";
-let bordercolor = "#ff0000";
+let bordercolor = "#8b0000";
 let fillmode;
 
+//defining reset function which reloads the page
 function reset()
 {
     location.reload();
 }
 
+//defining setcolor function which set's the color to the board
 function setcolor()
 {
     var picker = document.getElementById("color");
@@ -28,6 +32,7 @@ function setcolor()
     // console.log(picker.value);
 }
 
+//defining setborder which sets the color to the border
 function setborder()
 {
     var picker = document.getElementById("color");
@@ -48,6 +53,7 @@ function setborder()
     // console.log(picker.value);
 }
 
+//defininf select function which selects the clicked block
 function select(e)
 {
     let blocks = document.getElementsByClassName("block")
@@ -63,6 +69,7 @@ function select(e)
     log.innerHTML += `<p>${e.className} is filled with ${e.innerHTML}`
 }
 
+//defining a function for a virtual toss 
 function flipcoin()
 {
     let num = Math.random()*100;
@@ -79,7 +86,7 @@ function flipcoin()
         winner = "player2";
     }
 
-    log.innerHTML += `<p>${winner} won the toss</p>`;
-    fillmode = prompt("you have won the toss choose the input method ('0' of 'X'))");
+    fillmode = prompt("you have won the toss choose the input method ('0' or 'X'))");
+    log.innerHTML += `<p style="color:orangered;">${winner} won the toss and has chosen ${fillmode} to fill in the blocks.</p>`;
     console.log(fillmode);
 }

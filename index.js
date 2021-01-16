@@ -119,9 +119,13 @@ function isempty(x)
 //function to determine if the array is equal
 function arEqual(arr)
 {
-    if (arr[0] == arr[1] && arr[1] == arr[2]) return true;
+    let prev = arr[0];
 
-    return false;
+    for (let i = 1; i < 3; i++)
+    {
+        if (arr[i] == -1 || arr[i] != prev) return false;
+    }
+    return true;
 }
 
 // horizontal function which checks the horizontal winner;
@@ -129,27 +133,93 @@ function horizontal()
 {
     let blocks = document.getElementsByClassName("block");
 
+    let i = 0;
+    
+    while (i < 3)
+    {
+        let j = i*3;
+        let arr = [];
+
+        while (j < 3*(i+1))
+        {
+            let written = blocks[j].innerHTML;
+
+            if (!isempty(written)) arr.push(written);
+            else arr.push(-1);
+
+            j++;
+        }
+
+        if (arEqual(arr)) return true;
+
+        i++;
+    }
+
+    return false;
+
+}
+
+//function to find check the winner vertically
+function vertically()
+{
+    let blocks = document.getElementsByClassName('block');
+
     for (let i = 0; i < 3; i++)
     {
         let arr = [];
-        for (let j = 3*i; j < 3*(i+1); j++)
+        for (let j = i; j <= i + 6; j += 3)
         {
-            let filled = blocks[j].innerHTML;
-
-            if (!isempty(filled)) arr.push(filled);
-            else return false;
+            let written = blocks[j].innerHTML;
+            if (!isempty(written)) arr.push(written);
+            else arr.push(-1);
         }
 
-        return arEqual(arr);
+        if (arEqual(arr)) return true;
     }
 
+    return false;
+}
+
+//function to check the winner diagonally
+function diagonally()
+{
+    let blocks = document.getElementsByClassName('block');
+    let arr = [];
+    for (let i = 0; i < 9; i += 4)
+    {
+        let written = blocks[i].innerHTML;
+
+        if (!isempty(written)) arr.push(written);
+        else arr.push(-1);
+    }
+
+    if (arEqual(arr)) return true;
+
+    let arr2 = [];
+    for (let i = 2; i < 7; i += 2)
+    {
+        let written = blocks[i].innerHTML;
+
+        if (!isempty(written)) arr2.push(written);
+        else arr2.push(-1);
+    }
+
+    if (arEqual(arr2)) return true;
+    
+    return false;
 }
 
 // function to finish the game
 function gameover()
 {
-    if(horizontal() == true) 
+    if(horizontal() || vertically() || diagonally()) 
     {
-        reset();
+        let winner;
+        if (player1) winner = "player2";
+        else winner = "player1";
+        setTimeout(() => {
+            alert(`Congratulations! ${winner} has won the game now the game will be restarted`);  
+            reset();
+        }, 100);
     }
 }

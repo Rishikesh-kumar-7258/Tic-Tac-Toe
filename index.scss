@@ -1,3 +1,11 @@
+//some variables for the css
+$fontclr : blue;
+$shadoweffect : 3px 3px 5px $fontclr,
+                3px 3px 5px $fontclr,
+                3px 3px 5px $fontclr,
+                3px 3px 5px $fontclr,
+                3px 3px 5px $fontclr,
+                3px 3px 5px $fontclr;
 
 //defining css default css for our code
 *{
@@ -23,9 +31,9 @@ header{
     background-color:lightgreen;
     padding: 1rem;
     color: blueviolet;
+
     //css for h1 in our header file
     h1{
-        // border: 1px solid orange;
         display: flex;
         justify-content: center;
         
@@ -119,14 +127,12 @@ nav{
 //css for the game area
 section{
     grid-column:  5/ span 3;
-    // border: 1px solid black;
     margin-top: 2rem;
     height: 70vh;
     display: grid;
     grid-template-columns: repeat(3,1fr);
     grid-template-rows: repeat(4,1fr);
     align-content: center;
-    // border: 1px solid green;
 
     //css for the buttons downside of the board 
     #fill_opt{
@@ -138,7 +144,6 @@ section{
         grid-row: span 1;
         grid-column: span 3;
         height: 100%;
-        // border: 2px solid green;
         >button{
             cursor: pointer;
         }
@@ -183,10 +188,14 @@ section{
             grid-row: span 1;
             background-color: darkgoldenrod;
             border: 2px solid darkred;
+            border-radius: 1rem;
             display: grid;
             text-align: center;
             align-content : center;
             font-size : 3em;
+            color: $fontclr;
+            box-shadow : 3px 3px 5px black;
+            text-shadow : $shadoweffect;
         }
     }
 }
@@ -194,7 +203,6 @@ section{
 //css for our logging section
 section#log{
     grid-column: 9 / span 4;
-    // border: 1px solid green;
     display: flex;
     flex-direction: column;
     color: blue;
@@ -234,7 +242,6 @@ section#log{
         grid-column: 3 / span 8;
         height: 50vh;
         grid-template-rows: 1fr;
-        // border: 1px solid green;
     }
     section#log{
         grid-column:  3 / span 8;

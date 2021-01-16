@@ -47,7 +47,10 @@
             <div class="block c 3" onclick="select(this)"></div>
         </div>
         <div id="fill_opt">
-            <button onclick="fillblock()">Fill</button>
+            <div id="playerchoice">
+                <button id="player1">Player1(0)</button>
+                <button id="player2">Player2(X)</button>
+            </div>
             <button onclick="reset()">Reset board</button>
         </div>
 
@@ -55,7 +58,6 @@
     
     <!-- logging section -->
     <section id="log">
-        <button onclick="flipcoin()">Toss</button>
         <h1>Logs</h1>
     </section>
 </body>

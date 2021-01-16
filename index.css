@@ -210,6 +210,10 @@ section #fill_opt {
   height: 100%;
 }
 
+section #fill_opt > button {
+  cursor: pointer;
+}
+
 section #fill_opt button {
   height: 2rem;
   color: maroon;
@@ -217,9 +221,33 @@ section #fill_opt button {
   border-radius: 1rem;
 }
 
-section #fill_opt button:hover {
+section #fill_opt > button:hover {
   background-color: maroon;
   color: white;
+}
+
+section #fill_opt #playerchoice {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+section #fill_opt #playerchoice button {
+  width: 45%;
+}
+
+section #fill_opt #playerchoice #player2 {
+  background-color: grey;
 }
 
 section #board {
@@ -248,7 +276,7 @@ section #board .block {
   text-align: center;
   -ms-flex-line-pack: center;
       align-content: center;
-  font-size: 4rem;
+  font-size: 3em;
 }
 
 section#log {
@@ -314,6 +342,8 @@ section#log button:hover {
 
 @media screen and (max-width: 500px) {
   section {
+    margin-left: 3px;
+    margin-right: 3px;
     grid-column: span 12;
   }
   section#log {

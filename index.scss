@@ -31,6 +31,7 @@ header{
     background-color:lightgreen;
     padding: 1rem;
     color: blueviolet;
+    cursor: pointer;
 
     //css for h1 in our header file
     h1{
@@ -187,6 +188,7 @@ section{
             grid-column: span 1;
             grid-row: span 1;
             background-color: darkgoldenrod;
+            // backdrop-filter: invert(50%) ; 
             border: 2px solid darkred;
             border-radius: 1rem;
             display: grid;
@@ -196,6 +198,43 @@ section{
             color: $fontclr;
             box-shadow : 3px 3px 5px black;
             text-shadow : $shadoweffect;
+            transform: rotate(45deg);
+            P{
+                transform: rotate(-45deg);
+            }
+
+            
+        }
+        .block:nth-child(even)
+        {
+            animation: drop 1s 0.5s linear;
+        }
+        .block:nth-child(odd){
+            animation: slide 1s 0.5s linear;
+        }
+
+        .block:hover{
+            transform: skew(2deg);
+            
+        }
+
+        @keyframes drop{
+            from{
+                transform: translateY(-60vh) rotate(0deg);
+            }
+            to{
+                transform: translateY(0) rotate(720deg);
+            }
+        }
+
+        @keyframes slide{
+            from{
+                transform: translateX(-60vw) rotate(0deg);
+            }
+            
+            to{
+                transform: translateX(0) rotate(720deg);
+            }
         }
     }
 }
@@ -205,7 +244,7 @@ section#log{
     grid-column: 9 / span 4;
     display: flex;
     flex-direction: column;
-    color: blue;
+    color: orange;
     h1{
         color: brown;
     }

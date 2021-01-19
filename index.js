@@ -67,23 +67,23 @@ function select(e)
     }
     e.style.backgroundColor = "green";
     e.style.borderColor = "darkgreen";
-    if (e.innerHTML == 'X' || e.innerHTML == '0')
+    if (e.innerHTML == '<p>X</p>' || e.innerHTML == '<p>0</p>')
     {
         return false;
     }
     if (player1)
     {
-        e.innerHTML = "0";
+        e.innerHTML = "<p>0</p>";
         player1 = false;
         player2 = true;
     }
     else
     {
-        e.innerHTML = "X";
+        e.innerHTML = "<p>X</p>";
         player1 = true;
         player2 = false;
     }
-    log.innerHTML += `<p>${e.className} is filled with ${e.innerHTML}`
+    log.innerHTML += `<p>${e.className} is filled with ${e.innerText}`
     inact();
     // if (horizontal()) console.log("game over");
     gameover();
@@ -111,7 +111,7 @@ function inact()
 //a function to determine if the block is empty or not
 function isempty(x)
 {
-    if (x != 'X' && x != '0') return true;
+    if (x != '<p>X</p>' && x != '<p>0</p>') return true;
 
     return false;
 }

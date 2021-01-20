@@ -10,6 +10,15 @@ let player1 = true, player2 = false;
 function reset()
 {
     location.reload();
+    let blocks = document.getElementsByClassName("block");
+
+    for (let i = 0; i < 9; i++)
+    {
+        blocks[i].style.animation = "slide 1s 0.5s linear";
+        setTimeout(() => {
+            
+        }, 100);
+    }
     
 }
 
@@ -223,3 +232,18 @@ function gameover()
         }, 100);
     }
 }
+
+//function to make the blocks animated
+function animate_block()
+{
+    let blocks = document.getElementsByClassName("block");
+
+    for (let i = 0; i < blocks; i++)
+    {
+        setTimeout(() => {    
+            blocks[i].style.animation = "drop_down 1s 0.5s linear";
+        }, 100);
+    }
+}
+
+animate_block();

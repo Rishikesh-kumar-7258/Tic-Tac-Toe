@@ -36,6 +36,7 @@ header h1 {
 header h1 span.red {
   -webkit-animation: 1s linear 0.2s move_right;
           animation: 1s linear 0.2s move_right;
+  text-shadow: 2px 2px 4px #9b6767, 2px 2px 4px red, 2px 2px 4px red, 2px 2px 4px red, 2px 2px 4px red;
 }
 
 header h1 span.blue {
@@ -180,7 +181,7 @@ nav #settings:hover #dropdown {
 section {
   -ms-grid-column: 5;
   -ms-grid-column-span: 3;
-  grid-column: 5/ span 3;
+  grid-column: 5 / span 3;
   margin-top: 2rem;
   height: 70vh;
   display: -ms-grid;
@@ -256,7 +257,7 @@ section #board {
   grid-column: span 3;
   -ms-grid-row: 1;
   -ms-grid-row-span: 3;
-  grid-row: 1/span 3;
+  grid-row: 1 / span 3;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[3];
@@ -292,62 +293,30 @@ section #board .block P {
           transform: rotate(-45deg);
 }
 
-section #board .block:nth-child(even) {
-  -webkit-animation: drop 1s 0.5s linear;
-          animation: drop 1s 0.5s linear;
-}
-
-section #board .block:nth-child(odd) {
-  -webkit-animation: slide 1s 0.5s linear;
-          animation: slide 1s 0.5s linear;
-}
-
 section #board .block:hover {
   -webkit-transform: skew(2deg);
           transform: skew(2deg);
 }
 
-@-webkit-keyframes drop {
+@-webkit-keyframes drop_down {
   from {
-    -webkit-transform: translateY(-60vh) rotate(0deg);
-            transform: translateY(-60vh) rotate(0deg);
+    -webkit-transform: translateX(-60vh);
+            transform: translateX(-60vh);
   }
   to {
-    -webkit-transform: translateY(0) rotate(720deg);
-            transform: translateY(0) rotate(720deg);
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
   }
 }
 
-@keyframes drop {
+@keyframes drop_down {
   from {
-    -webkit-transform: translateY(-60vh) rotate(0deg);
-            transform: translateY(-60vh) rotate(0deg);
+    -webkit-transform: translateX(-60vh);
+            transform: translateX(-60vh);
   }
   to {
-    -webkit-transform: translateY(0) rotate(720deg);
-            transform: translateY(0) rotate(720deg);
-  }
-}
-
-@-webkit-keyframes slide {
-  from {
-    -webkit-transform: translateX(-60vw) rotate(0deg);
-            transform: translateX(-60vw) rotate(0deg);
-  }
-  to {
-    -webkit-transform: translateX(0) rotate(720deg);
-            transform: translateX(0) rotate(720deg);
-  }
-}
-
-@keyframes slide {
-  from {
-    -webkit-transform: translateX(-60vw) rotate(0deg);
-            transform: translateX(-60vw) rotate(0deg);
-  }
-  to {
-    -webkit-transform: translateX(0) rotate(720deg);
-            transform: translateX(0) rotate(720deg);
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
   }
 }
 
@@ -395,7 +364,10 @@ section#log button:hover {
   color: darkblue;
 }
 
-@media screen and (max-width: 1000px) {
+@media (max-width: 1000px) {
+  body {
+    overflow: hidden;
+  }
   section {
     -ms-grid-column: 3;
     -ms-grid-column-span: 8;
@@ -403,6 +375,10 @@ section#log button:hover {
     height: 50vh;
     -ms-grid-rows: 1fr;
         grid-template-rows: 1fr;
+  }
+  section #board .blocks {
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
   }
   section#log {
     -ms-grid-column: 3;
@@ -412,11 +388,15 @@ section#log button:hover {
   }
 }
 
-@media screen and (max-width: 500px) {
+@media (max-width: 500px) {
   section {
     margin-left: 3px;
     margin-right: 3px;
     grid-column: span 12;
+  }
+  section .blocks {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
   }
   section#log {
     grid-column: span 12;

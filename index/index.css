@@ -1,0 +1,226 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-decoration: none;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: auto 1fr auto;
+      grid-template-rows: auto 1fr auto;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+  background: #333;
+}
+
+header {
+  width: 100%;
+  -webkit-box-shadow: 0 3px 4px 0 #181818;
+          box-shadow: 0 3px 4px 0 #181818;
+}
+
+header .title {
+  text-align: center;
+}
+
+header .title .red {
+  color: red;
+}
+
+header .title .green {
+  color: green;
+}
+
+header .title .blue {
+  color: blue;
+}
+
+header nav {
+  width: 100%;
+}
+
+header nav img {
+  position: absolute;
+  width: 30px;
+  top: 5px;
+  left: 5px;
+  cursor: pointer;
+  background: #000000;
+}
+
+main {
+  height: 100%;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+}
+
+main section {
+  width: 100vmin;
+  height: 100vmin;
+  max-width: 360px;
+  max-height: 360px;
+  position: relative;
+}
+
+main section .board {
+  width: 100%;
+  height: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  -ms-grid-rows: (1fr)[3];
+      grid-template-rows: repeat(3, 1fr);
+  -webkit-box-shadow: 0 0 10px 5px #171717;
+          box-shadow: 0 0 10px 5px #171717;
+}
+
+main section .board .box {
+  border: 1px solid blue;
+  background-color: #191919;
+  cursor: pointer;
+  color: white;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  font-size: calc(48px - 0.1em);
+}
+
+main section .board .box:hover {
+  -webkit-transform: scale(1.01);
+          transform: scale(1.01);
+}
+
+main section button {
+  font-size: calc(16px + 0.2rem);
+  padding: calc(5px + 0.1rem);
+  position: absolute;
+  left: 35%;
+  border-radius: 5px;
+  border: 1px solid green;
+  margin-top: 3px;
+  background-color: #006400;
+  color: #fff;
+  cursor: pointer;
+  -webkit-box-shadow: 0 0 10px 3px #171717;
+          box-shadow: 0 0 10px 3px #171717;
+}
+
+main section button:hover {
+  background-color: #050;
+}
+
+main aside {
+  --width: 400px;
+  --height: 80vh;
+  width: 100vw;
+  max-width: var(--width);
+  height: var(--height);
+  position: absolute;
+  top: calc(50% - var(--height)/2);
+  right: 3px;
+  background: deepskyblue;
+  text-align: center;
+  color: #953;
+  border-radius: 5px;
+}
+
+main aside .ham {
+  top: 0;
+  left: 0;
+}
+
+main aside h1 {
+  margin: 5px;
+}
+
+main aside p {
+  color: #050;
+}
+
+.modal {
+  display: none;
+  position: absolute;
+  place-items: center;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.modal .hide_modal {
+  width: 100vw;
+  height: 100vh;
+  max-width: 400px;
+  max-height: 200px;
+  background: #fff;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.modal .hide_modal span {
+  position: absolute;
+  padding: 2px;
+  font-weight: 600;
+  color: #555;
+  background-color: #0aa;
+  font-size: 2rem;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  top: 0;
+  right: 0;
+}
+
+.modal .hide_modal span:hover {
+  color: #000;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+footer {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  font-size: 24px;
+  background: #a52a2a;
+}
+
+.ham {
+  width: 25px;
+  height: 25px;
+  background-color: #000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  border-radius: 5px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.ham .line {
+  width: 80%;
+  height: 2px;
+  background-color: #fff;
+}
+/*# sourceMappingURL=index.css.map */

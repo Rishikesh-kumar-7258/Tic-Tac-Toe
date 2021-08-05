@@ -7,59 +7,57 @@
     <meta name="description"
         content="Name : Tic-tac-toe ,game, published by : Rishikesh Kumar | This is just a project showcase for beginners">
     <!-- included our stylesheetfile -->
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="./index/index.css">
     <title>Game | Tic-Tac-Toe</title>
 </head>
-<!-- //included our javascript file -->
-<script src="index.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <body>
     <header>
-        <h1><span class="red">Tic</span> <span class="yellow">- Tac -</span><span class="blue">Toe</span></h1>
+        <div class="title">
+            <h1><span class="red">Tic</span> <span class="green">- Tac -</span> <span class="blue">Toe</span></h1>
+        </div>
+        <nav>
+            <a href="settings.html" title="Settings"><img src="./photos/setting_logo-01.jpg" alt="SettingLogo"></a>
+        </nav>
     </header>
-    <!-- We can change the settings from here  -->
-    <nav>
-        <div id="settings">
-            <button>
-                <h3>Change color</h3>
-            </button>
-            <div id="dropdown">
-                <input type="color" name="color" id="color">
-                <div id="buttons">
-                    <button onclick="setcolor()">Set Board</button>
-                    <button onclick="setborder()">Set Border</button>
-                </div>
-            </div>
-        </div>
-    </nav>
 
-    <!-- the game board -->
-    <section>
-        <div id="board">
-            <div class="block a 1" onclick="select(this)"></div>
-            <div class="block b 1" onclick="select(this)"></div>
-            <div class="block c 1" onclick="select(this)"></div>
-            <div class="block a 2" onclick="select(this)"></div>
-            <div class="block b 2" onclick="select(this)"></div>
-            <div class="block c 2" onclick="select(this)"></div>
-            <div class="block a 3" onclick="select(this)"></div>
-            <div class="block b 3" onclick="select(this)"></div>
-            <div class="block c 3" onclick="select(this)"></div>
-        </div>
-        <div id="fill_opt">
-            <div id="playerchoice">
-                <button id="player1">Player1(0)</button>
-                <button id="player2">Player2(X)</button>
+    <main>
+        <section>
+            <div class="board">
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
             </div>
-            <button onclick="reset()">Reset board</button>
-        </div>
+            <button id="restart" title="Click to restart the game">Restart</button>
+        </section>
+        <aside>
+            <h1>Log</h1>
+            <div class="ham" title="Toggle the logger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </aside>
+    </main>
 
-    </section>
-    
-    <!-- logging section -->
-    <section id="log">
-        <h1>Logs</h1>
-    </section>
+    <div class="modal">
+        <!-- This is the modal class -->
+        <div class="hide_modal">
+            <p>Nothing to show here</p>
+            <span class="cross">&times;</span>
+        </div>
+    </div>
+
+    <footer>This game is made by @Rishikesh Kumar &copy;</footer>
 </body>
+
+<script src="./index/index.js"></script>
 
 </html>

@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="index.css">
     <title>Game | Tic-Tac-Toe</title>
 </head>
-<!-- //included our javascript file -->
-<script src="index.js"></script>
 
 <body>
     <header>
@@ -36,20 +34,20 @@
     <!-- the game board -->
     <section>
         <div id="board">
-            <div class="block a 1" onclick="select(this)"></div>
-            <div class="block b 1" onclick="select(this)"></div>
-            <div class="block c 1" onclick="select(this)"></div>
-            <div class="block a 2" onclick="select(this)"></div>
-            <div class="block b 2" onclick="select(this)"></div>
-            <div class="block c 2" onclick="select(this)"></div>
-            <div class="block a 3" onclick="select(this)"></div>
-            <div class="block b 3" onclick="select(this)"></div>
-            <div class="block c 3" onclick="select(this)"></div>
+            <div class="block a 1"></div>
+            <div class="block b 1"></div>
+            <div class="block c 1"></div>
+            <div class="block a 2"></div>
+            <div class="block b 2"></div>
+            <div class="block c 2"></div>
+            <div class="block a 3"></div>
+            <div class="block b 3"></div>
+            <div class="block c 3"></div>
         </div>
         <div id="fill_opt">
             <div id="playerchoice">
                 <button id="player1">Player1(0)</button>
-                <button id="player2">Player2(X)</button>
+                <button id="player2" class="inactive">Player2(X)</button>
             </div>
             <button onclick="reset()">Reset board</button>
         </div>
@@ -61,5 +59,6 @@
         <h1>Logs</h1>
     </section>
 </body>
+<script src="index.js"></script>
 
 </html>

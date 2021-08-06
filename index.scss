@@ -36,7 +36,6 @@ header {
 	background-color: lightgreen;
 	padding: 1rem;
 	color: blueviolet;
-	cursor: pointer;
 
 	//css for h1 in our header file
 	h1 {
@@ -103,6 +102,7 @@ nav {
 			color: green;
 			padding: 0.5rem;
 			cursor: pointer;
+			border-radius : 20px;
 		}
 		button:hover {
 			color: white;
@@ -136,13 +136,13 @@ nav {
 //css for the game area
 section {
 	grid-column:span 6;
-	margin-top: 2rem;
-	height: 70vh;
+	padding-top: 2rem;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: repeat(4, 1fr);
 	align-content: center;
 	place-items: center;
+	color : maroon;
 
 	//css for the buttons downside of the board
 	#fill_opt {
@@ -151,34 +151,20 @@ section {
 		flex-direction: column;
 		width: 100%;
 		max-width : 350px;
-		justify-content: space-evenly;
 		grid-column: span 4;
-		height: 100%;
-		transform: translate(0, 10px);
-		> button {
-			cursor: pointer;
-		}
+		align-items: center;
 		button {
-			height: 2rem;
-			padding : 3px;
+			cursor: pointer;
+			padding : 5px 20px;
+			margin : 5px 0;
 			color: maroon;
+			font-weight: 800;
 			border: 1px solid maroon;
 			border-radius: 1rem;
 		}
-		> button:hover {
+		button:hover {
 			background-color: maroon;
 			color: white;
-		}
-
-		#playerchoice {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: space-between;
-
-			button {
-				width: 45%;
-			}
 		}
 	}
 
@@ -200,8 +186,7 @@ section {
 			border: 2px solid darkred;
 			border-radius: 1rem;
 			display: grid;
-			text-align: center;
-			align-content: center;
+			place-items: center;
 			font-size: 3em;
 			color: $fontclr;
 			box-shadow: 3px 3px 5px black;
@@ -226,8 +211,8 @@ section#log {
 	display: flex;
 	flex-direction: column;
 	color: orange;
-	h1 {
-		color: brown;
+	p {
+		color: maroon;
 	}
 
 	button {

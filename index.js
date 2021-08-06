@@ -4,21 +4,26 @@
 let boardcolor = "#b8860b";
 let bordercolor = "#8b0000";
 let fillmode;
-let player1 = true, player2 = false;
+let player1 = true;
 
 //defining reset function which reloads the page
 function reset() {
     location.reload();
-
 }
+
+// some useful elements to be used in the code
+let log = document.getElementById("log");
+let blocks = document.querySelectorAll(".block")
 
 //defining setcolor function which set's the color to the board
 function setcolor() {
     var picker = document.getElementById("color");
-    var log = document.getElementById('log');
     var blocks = document.getElementsByClassName("block");
+    let l = document.createElement('p');
+
     if (bordercolor == picker.value) {
-        log.innerHTML += `<p> same color cannot be given to both board and border</p>`
+        l.innerText += `same color cannot be given to both board and border`;
+        log.append(l);
         return false;
     }
     for (let i = 0; i < 9; i++) {
@@ -26,17 +31,19 @@ function setcolor() {
         blocks[i].style.backgroundColor = picker.value;
     }
     boardcolor = picker.value;
-    log.innerHTML += `<p>Color of the blocks is changed to ${picker.value}</p>`;
-    // console.log(picker.value);
+
+    l.innerHTML = `Color of the blocks is changed to ${picker.value}`;
+    log.append(l);
 }
 
 //defining setborder which sets the color to the border
 function setborder() {
     var picker = document.getElementById("color");
     var log = document.getElementById('log');
-    var blocks = document.getElementsByClassName("block");
+    let p = document.createElement('p');
     if (boardcolor == picker.value) {
-        log.innerHTML += `<p> same color cannot be given to both board and border</p>`
+        p.innerText = `Same color cannot be given to both board and border`;
+        log.append(p);
         return false;
     }
     for (let i = 0; i < 9; i++) {
@@ -44,13 +51,12 @@ function setborder() {
         blocks[i].style.borderColor = picker.value;
     }
     bordercolor = picker.value;
-    log.innerHTML += `<p>Color of the border is changed to ${picker.value}</p>`;
+    p.innerText = `Color of the border is changed to ${picker.value}`;
+    log.append(p);
 }
 
 //defininf select function which selects the clicked block
-let blocks = document.querySelectorAll(".block")
-let log = document.getElementById("log");
-
+let h4 = document.querySelector('#fill_opt h4');
 let before = null;
 
 blocks.forEach(element => {
@@ -59,118 +65,75 @@ blocks.forEach(element => {
         if (before) before.classList.remove('selected');
         before = element;
 
-        if (element.innerHTML == '<p>X</p>' || element.innerHTML == '<p>0</p>') {
+        if (!isempty(element)) {
             return false;
         }
+        let add = document.createElement('p');
         if (player1) {
-            element.innerHTML = "<p>0</p>";
+            add.innerText = '0';
             player1 = false;
-            player2 = true;
         }
         else {
-            element.innerHTML = "<p>X</p>";
+            add.innerText = 'X';
             player1 = true;
-            player2 = false;
         }
-        inact();
-        log.innerHTML += `<p>${element.className} is filled with ${element.innerText}`
+
+        if (player1) h4.innerText = "Player1(0)'s turn";
+        else h4.innerText = "Player2(X)'s turn";
+
+        element.append(add);
+
+        let l = document.createElement('p');
+        l.innerText = `${element.className} is filled with ${element.innerText}`;
+        log.append(l);
         gameover();
     });
 });
 
-//defining a function to set a button inactive
-function inact() {
-    document.getElementById("player1").classList.toggle('inactive');
-    document.getElementById("player2").classList.toggle('inactive');
-}
-
-//a function to determine if the block is empty or not
+//function to determine if the block is empty or not
 function isempty(x) {
-    if (x != '<p>X</p>' && x != '<p>0</p>') return true;
-
-    return false;
+    if (x.hasChildNodes()) return false;
+    else return true;
 }
 
 //function to determine if the array is equal
-function arEqual(arr) {
-    let prev = arr[0];
+function arEqual(...arg) {
 
-    for (let i = 1; i < 3; i++) {
-        if (arr[i] == -1 || arr[i] != prev) return false;
+    let empty = false;
+    for (let i = 0; i < arg.length; i++)
+    {
+        if (isempty(arg[i])) return false;
     }
+
+    for (let i = 1; i < arg.length; i++) {
+        if (arg[i].innerText !== arg[i-1].innerText) return false;
+    }
+
     return true;
 }
 
 // horizontal function which checks the horizontal winner;
 function horizontal() {
-    let blocks = document.getElementsByClassName("block");
-
-    let i = 0;
-
-    while (i < 3) {
-        let j = i * 3;
-        let arr = [];
-
-        while (j < 3 * (i + 1)) {
-            let written = blocks[j].innerHTML;
-
-            if (!isempty(written)) arr.push(written);
-            else arr.push(-1);
-
-            j++;
-        }
-
-        if (arEqual(arr)) return true;
-
-        i++;
-    }
-
-    return false;
+    
+    return (arEqual(blocks[0], blocks[1], blocks[2]) 
+            || arEqual(blocks[3], blocks[4], blocks[5])
+            || arEqual(blocks[6], blocks[7], blocks[8]));
 
 }
 
 //function to find check the winner vertically
 function vertically() {
-    let blocks = document.getElementsByClassName('block');
-
-    for (let i = 0; i < 3; i++) {
-        let arr = [];
-        for (let j = i; j <= i + 6; j += 3) {
-            let written = blocks[j].innerHTML;
-            if (!isempty(written)) arr.push(written);
-            else arr.push(-1);
-        }
-
-        if (arEqual(arr)) return true;
-    }
-
-    return false;
+    
+    return (arEqual(blocks[0], blocks[3], blocks[6])
+        || arEqual(blocks[1], blocks[4], blocks[7])
+        || arEqual(blocks[2], blocks[5], blocks[8]));
 }
 
 //function to check the winner diagonally
 function diagonally() {
-    let blocks = document.getElementsByClassName('block');
-    let arr = [];
-    for (let i = 0; i < 9; i += 4) {
-        let written = blocks[i].innerHTML;
-
-        if (!isempty(written)) arr.push(written);
-        else arr.push(-1);
-    }
-
-    if (arEqual(arr)) return true;
-
-    let arr2 = [];
-    for (let i = 2; i < 7; i += 2) {
-        let written = blocks[i].innerHTML;
-
-        if (!isempty(written)) arr2.push(written);
-        else arr2.push(-1);
-    }
-
-    if (arEqual(arr2)) return true;
-
-    return false;
+    
+    return (arEqual(blocks[0], blocks[4], blocks[8])
+        || arEqual(blocks[2], blocks[4], blocks[6]));
 }
 
 // function to finish the game
@@ -185,16 +148,3 @@ function gameover() {
         }, 100);
     }
 }
-
-//function to make the blocks animated
-function animate_block() {
-    let blocks = document.getElementsByClassName("block");
-
-    for (let i = 0; i < blocks; i++) {
-        setTimeout(() => {
-            blocks[i].style.animation = "drop_down 1s 0.5s linear";
-        }, 100);
-    }
-}
-
-animate_block();

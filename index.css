@@ -22,7 +22,6 @@ header {
   background-color: lightgreen;
   padding: 1rem;
   color: blueviolet;
-  cursor: pointer;
 }
 
 header h1 {
@@ -135,6 +134,7 @@ nav #settings button {
   color: green;
   padding: 0.5rem;
   cursor: pointer;
+  border-radius: 20px;
 }
 
 nav #settings button:hover {
@@ -183,8 +183,7 @@ nav #settings:hover #dropdown {
 
 section {
   grid-column: span 6;
-  margin-top: 2rem;
-  height: 70vh;
+  padding-top: 2rem;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[3];
@@ -194,6 +193,7 @@ section {
   -ms-flex-line-pack: center;
       align-content: center;
   place-items: center;
+  color: maroon;
 }
 
 section #fill_opt {
@@ -207,50 +207,25 @@ section #fill_opt {
           flex-direction: column;
   width: 100%;
   max-width: 350px;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
   grid-column: span 4;
-  height: 100%;
-  -webkit-transform: translate(0, 10px);
-          transform: translate(0, 10px);
-}
-
-section #fill_opt > button {
-  cursor: pointer;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 section #fill_opt button {
-  height: 2rem;
-  padding: 3px;
+  cursor: pointer;
+  padding: 5px 20px;
+  margin: 5px 0;
   color: maroon;
+  font-weight: 800;
   border: 1px solid maroon;
   border-radius: 1rem;
 }
 
-section #fill_opt > button:hover {
+section #fill_opt button:hover {
   background-color: maroon;
   color: white;
-}
-
-section #fill_opt #playerchoice {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-section #fill_opt #playerchoice button {
-  width: 45%;
 }
 
 section #board {
@@ -277,9 +252,7 @@ section #board .block {
   border-radius: 1rem;
   display: -ms-grid;
   display: grid;
-  text-align: center;
-  -ms-flex-line-pack: center;
-      align-content: center;
+  place-items: center;
   font-size: 3em;
   color: blue;
   -webkit-box-shadow: 3px 3px 5px black;
@@ -314,8 +287,8 @@ section#log {
   color: orange;
 }
 
-section#log h1 {
-  color: brown;
+section#log p {
+  color: maroon;
 }
 
 section#log button {

@@ -11,6 +11,21 @@ $fontclr: blue;
 	}
 }
 
+@mixin grid($row, $col, $blocksize)
+{
+	display : grid;
+	grid-template-columns: repeat($col, $blocksize);
+	grid-template-rows: repeat($row, $blocksize);
+}
+
+@mixin flex($align, $justify, $direction)
+{
+	display : flex;
+	align-items: $align;
+	justify-content: $justify;
+	flex-direction: $direction;
+}
+
 //defining css default css for our code
 * {
 	margin: 0;
@@ -24,8 +39,7 @@ body {
 	width: 100vw;
 	height: 100vh;
 	min-width : 350px;
-	display: grid;
-	grid-template-columns: repeat(12, 1fr);
+	@include grid(1, 12, 1fr);
 	height: 10vh;
 	background-color: rgb(90, 122, 90);
 }
@@ -39,8 +53,7 @@ header {
 
 	//css for h1 in our header file
 	h1 {
-		display: flex;
-		justify-content: center;
+		@include flex(flex-start, center, row);
 
 		//css for the different parts of the word and animating them
 		span.red {
@@ -121,15 +134,12 @@ nav {
 				height: 2rem;
 			}
 			#buttons {
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
+				@include flex(flex-start, center, column);
 			}
 		}
 	}
 	#settings:hover #dropdown {
-		display: flex;
-		flex-direction: column;
+		@include flex(flex-start, center, column);
 	}
 }
 
@@ -137,9 +147,7 @@ nav {
 section {
 	grid-column:span 6;
 	padding-top: 2rem;
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: repeat(4, 1fr);
+	@include grid(4, 3, 1fr);
 	align-content: center;
 	place-items: center;
 	color : maroon;
@@ -147,12 +155,10 @@ section {
 	//css for the buttons downside of the board
 	#fill_opt {
 		place-self : end;
-		display: flex;
-		flex-direction: column;
+		@include flex(center, center, column);
 		width: 100%;
 		max-width : 350px;
 		grid-column: span 4;
-		align-items: center;
 		button {
 			cursor: pointer;
 			padding : 5px 20px;
@@ -170,13 +176,10 @@ section {
 
 	//css for our board
 	#board {
-		$blocksize: 100px;
 		cursor: pointer;
 		grid-column: span 3;
 		grid-row: 1 / span 3;
-		display: grid;
-		grid-template-columns: repeat(3, $blocksize);
-		grid-template-rows: repeat(3, $blocksize);
+		@include grid(3, 3, 100px);
 		place-self : end;
 		place-content: center;
 
@@ -208,8 +211,7 @@ section {
 
 //css for our logging section
 section#log {
-	display: flex;
-	flex-direction: column;
+	@include flex(center, flex-start, column);
 	color: orange;
 	p {
 		color: maroon;
@@ -245,13 +247,7 @@ section#log {
 }
 
 //making our webpage more responsive
-@media (max-width: 1000px) {
-	section {
-		grid-column: span 6;
-	}
-}
-
-@media (max-width : 650px)
+@media (max-width : 1000px)
 {
 	section{
 		grid-column: span 12;

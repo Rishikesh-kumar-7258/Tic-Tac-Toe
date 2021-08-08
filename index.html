@@ -18,8 +18,8 @@
     </header>
     <!-- We can change the settings from here  -->
     <nav>
-        <div id="settings">
-            <button>
+        <div id="settings" title="choose the color and click on set board/border to change the respective color">
+            <button class="drop-button">
                 <h3>Change color</h3>
             </button>
             <div id="dropdown">
@@ -30,6 +30,7 @@
                 </div>
             </div>
         </div>
+        <button class="vscomputer" title="Click here play vs computer">Vs Computer <span class="bg-red"></span></button>
     </nav>
 
     <!-- the game board -->
@@ -46,15 +47,15 @@
             <div class="block c 3"></div>
         </div>
         <div id="fill_opt">
-            <h4>Player1(0)'s turn</h4>
-            <button onclick="reset()">Reset board</button>
+            <h4 title="Shows current turn">Player1(0)'s turn</h4>
+            <button onclick="reset()" title="It will restart the game">Reset board</button>
         </div>
 
     </section>
     
     <!-- logging section -->
     <section id="log">
-        <h1>Logs</h1>
+        <h1 title="All logs written below">Logs</h1>
     </section>
 </body>
 <script src="index.js"></script>

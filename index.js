@@ -11,13 +11,15 @@ class Matrix {
         for (let i = 0; i < 3; i++) this.#board.push(['', '', '']);
     }
 
+    getSpaces = () => this.#spaces;
+
     isOver = () => this.#over;
 
     insert_to_board = (row, col, value) => {
         this.#board[row][col] = value;
         this.#spaces -= 1;
 
-        this.#over = this.#game_over(this.#board,row, col);
+        this.#over = this.#game_over(this.#board, row, col);
     }
 
     //function to determine if the array is equal
@@ -58,14 +60,7 @@ class Matrix {
         return -1;
     }
 
-    // Adding functinality for players to play versus computers
-    // computer_choice = (m, sp) => {
-
-    //     if (sp == 0) return 0;
-        
-    // }
-
-}
+};
 
 // Instantiating a board for game
 const board = new Matrix();
@@ -75,6 +70,25 @@ let boardcolor = "#b8860b";
 let bordercolor = "#8b0000";
 let fillmode;
 let player1 = true;
+let vsComputer = false;
+let gameState = 'start';
+
+if (gameState === 'start')
+{
+    let section = document.querySelector('section');
+    section.classList.add('start');
+    window.addEventListener('keypress', (e) => {
+        section.classList.remove('start');
+        gameState = 'play';
+    })
+}
+
+// for changing the computer functionality option
+document.querySelector('.vscomputer').addEventListener('click', function(){
+    if (board.getSpaces() != 9) return;
+    document.querySelector('.vscomputer span').classList.toggle('bg-red');
+    vsComputer = !vsComputer;
+})
 
 //defining reset function which reloads the page
 function reset() {
@@ -109,7 +123,6 @@ function setcolor() {
 //defining setborder which sets the color to the border
 function setborder() {
     var picker = document.getElementById("color");
-    var log = document.getElementById('log');
     let p = document.createElement('p');
     if (boardcolor == picker.value) {
         p.innerText = `Same color cannot be given to both board and border`;
@@ -125,11 +138,10 @@ function setborder() {
     log.append(p);
 }
 
-//defininf select function which selects the clicked block
+//defining function which selects the clicked block and added event listner to them
 let h4 = document.querySelector('#fill_opt h4');
 let before = null;
 
-// Using data structures to solve the tic-tac-toe problem
 blocks.forEach(element => {
     element.addEventListener('click', () => {
         element.classList.add("selected");
@@ -157,8 +169,8 @@ blocks.forEach(element => {
         let l = document.createElement('p');
         l.innerText = `${element.className} is filled with ${element.innerText}`;
         log.append(l);
-        gameover();
-
+        if (gameover()) return;
+        if (vsComputer) computer_play();
     });
 });
 
@@ -174,6 +186,8 @@ function gameover() {
             alert(`Congratulations! ${winner} has won the game\nRestart`);
             reset();
         }, 100);
+
+        return 1;
     }
 
     if (board.isOver() == 0) {
@@ -181,7 +195,11 @@ function gameover() {
             alert(`The game ended in a tie\nRestart`);
             reset();
         }, 100);
+
+        return 1;
     }
+
+    return 0;
 
 }
 
@@ -207,4 +225,39 @@ const get_col = box => {
     let col = alphaToInt(classes[1]);
 
     return col;
+}
+
+// Adding functinality for players to play versus computers
+let sp = 4;
+const computer_play = () => {
+    if (player1) return;
+
+    computer_choice();
+    player1 = !player1;
+
+    h4.innerText = "Player1(0)'s turn";
+
+
+    if(gameover()) return;
+
+}
+computer_choice = () => {
+
+    // if (!sp) return 0;
+
+    let row = parseInt(Math.random() * 3);
+    let col = parseInt(Math.random() * 3);
+
+    let cl = (row+1).toString();
+    let bl = document.getElementsByClassName(cl)[col];
+    if (bl.hasChildNodes()) computer_choice();
+    else {
+        board.insert_to_board(row, col, 'X');
+        bl.innerHTML = '<p>X</p>';
+        let l = document.createElement('p');
+        l.innerText = `${bl.className} selected is filled with ${bl.innerText}`;
+        log.append(l);
+    }
+
+    // sp--;
 }

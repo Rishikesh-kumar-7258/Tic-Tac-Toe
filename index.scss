@@ -11,16 +11,14 @@ $fontclr: blue;
 	}
 }
 
-@mixin grid($row, $col, $blocksize)
-{
-	display : grid;
+@mixin grid($row, $col, $blocksize) {
+	display: grid;
 	grid-template-columns: repeat($col, $blocksize);
 	grid-template-rows: repeat($row, $blocksize);
 }
 
-@mixin flex($align, $justify, $direction)
-{
-	display : flex;
+@mixin flex($align, $justify, $direction) {
+	display: flex;
 	align-items: $align;
 	justify-content: $justify;
 	flex-direction: $direction;
@@ -38,10 +36,10 @@ $fontclr: blue;
 body {
 	width: 100vw;
 	height: 100vh;
-	min-width : 350px;
+	min-width: 380px;
 	@include grid(1, 12, 1fr);
 	height: 10vh;
-	background-color: rgb(90, 122, 90);
+	background-color: #5a7a5a;
 }
 
 //css for the header file
@@ -103,6 +101,36 @@ header {
 nav {
 	grid-column: span 12;
 	background-color: mediumseagreen;
+	display: flex;
+
+	// vs computer functionality button
+	button.vscomputer {
+		font-weight: bolder;
+		position: relative;
+		padding-right: 20px;
+
+		span {
+			$dim: 10px;
+			position: absolute;
+			width: $dim;
+			height: $dim;
+			border-radius: 50%;
+			background: green;
+			right: 5px;
+			top: 50%;
+			transform: translate(0, -50%);
+		}
+		.bg-red {
+			background-color: red;
+		}
+	}
+	button {
+		border: 1px solid green;
+		color: green;
+		padding: 0.5rem;
+		cursor: pointer;
+		border-radius: 20px;
+	}
 
 	//defining css for our settings menu
 	#settings {
@@ -110,13 +138,6 @@ nav {
 		width: fit-content;
 
 		//css for the buttons inside the setting menu
-		button {
-			border: 1px solid green;
-			color: green;
-			padding: 0.5rem;
-			cursor: pointer;
-			border-radius : 20px;
-		}
 		button:hover {
 			color: white;
 			background-color: green;
@@ -144,25 +165,39 @@ nav {
 }
 
 //css for the game area
+.start{
+	position: relative;
+	&::before{
+		content: "Press any key to start the game";
+		position: absolute;
+		@include grid(1, 1, 1fr);
+		font-size: 2rem;
+		place-items: center;
+		width : 100%;
+		height: 100%;
+		background : #5a7a5a;
+		z-index: 5;
+	}
+}
 section {
-	grid-column:span 6;
+	grid-column: span 6;
 	padding-top: 2rem;
 	@include grid(4, 3, 1fr);
 	align-content: center;
 	place-items: center;
-	color : maroon;
+	color: maroon;
 
 	//css for the buttons downside of the board
 	#fill_opt {
-		place-self : end;
+		place-self: end;
 		@include flex(center, center, column);
 		width: 100%;
-		max-width : 350px;
+		max-width: 350px;
 		grid-column: span 4;
 		button {
 			cursor: pointer;
-			padding : 5px 20px;
-			margin : 5px 0;
+			padding: 5px 20px;
+			margin: 5px 0;
 			color: maroon;
 			font-weight: 800;
 			border: 1px solid maroon;
@@ -180,7 +215,7 @@ section {
 		grid-column: span 3;
 		grid-row: 1 / span 3;
 		@include grid(3, 3, 100px);
-		place-self : end;
+		place-self: end;
 		place-content: center;
 
 		.block {
@@ -199,8 +234,8 @@ section {
 				transform: rotate(-45deg);
 			}
 		}
-		.selected{
-			background : green;
+		.selected {
+			background: green;
 		}
 
 		.block:hover {
@@ -241,21 +276,28 @@ section#log {
 .blue {
 	color: darkblue;
 }
-
-.inactive{
-	background : gray;
+.inactive {
+	background: gray;
 }
 
 //making our webpage more responsive
-@media (max-width : 1000px)
-{
-	section{
+@media (max-width: 1000px) {
+	section {
 		grid-column: span 12;
 		place-items: center;
 
-		#board, #fill_opt{
-			place-self : center;
+		#board,
+		#fill_opt {
+			place-self: center;
 		}
 	}
+}
 
+@media (max-width: 350px) {
+	section {
+		#board {
+			@include grid(3, 3, 80px);
+			margin-bottom: 20px;
+		}
+	}
 }

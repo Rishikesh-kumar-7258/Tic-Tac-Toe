@@ -8,7 +8,7 @@
 body {
   width: 100vw;
   height: 100vh;
-  min-width: 350px;
+  min-width: 380px;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[12];
@@ -129,6 +129,39 @@ header h1 span.yellow {
 nav {
   grid-column: span 12;
   background-color: mediumseagreen;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+nav button.vscomputer {
+  font-weight: bolder;
+  position: relative;
+  padding-right: 20px;
+}
+
+nav button.vscomputer span {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: green;
+  right: 5px;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+
+nav button.vscomputer .bg-red {
+  background-color: red;
+}
+
+nav button {
+  border: 1px solid green;
+  color: green;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 20px;
 }
 
 nav #settings {
@@ -136,14 +169,6 @@ nav #settings {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-}
-
-nav #settings button {
-  border: 1px solid green;
-  color: green;
-  padding: 0.5rem;
-  cursor: pointer;
-  border-radius: 20px;
 }
 
 nav #settings button:hover {
@@ -197,6 +222,27 @@ nav #settings:hover #dropdown {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.start {
+  position: relative;
+}
+
+.start::before {
+  content: "Press any key to start the game";
+  position: absolute;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[1];
+      grid-template-columns: repeat(1, 1fr);
+  -ms-grid-rows: (1fr)[1];
+      grid-template-rows: repeat(1, 1fr);
+  font-size: 2rem;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background: #5a7a5a;
+  z-index: 5;
 }
 
 section {
@@ -353,8 +399,21 @@ section#log button:hover {
     grid-column: span 12;
     place-items: center;
   }
-  section #board, section #fill_opt {
+  section #board,
+  section #fill_opt {
     place-self: center;
+  }
+}
+
+@media (max-width: 350px) {
+  section #board {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (80px)[3];
+        grid-template-columns: repeat(3, 80px);
+    -ms-grid-rows: (80px)[3];
+        grid-template-rows: repeat(3, 80px);
+    margin-bottom: 20px;
   }
 }
 /*# sourceMappingURL=index.css.map */

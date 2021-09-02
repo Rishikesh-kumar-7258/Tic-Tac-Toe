@@ -112,6 +112,7 @@ blocks.forEach(element => {
 
         if (Terminal(BOARD)) gameover();
         if (vsComputer && next_player(BOARD) === O) computer_play();
+        if (Terminal(BOARD)) gameover();
     });
 });
 
@@ -331,5 +332,4 @@ const minimax = b => {
     }
 
     return ans
-    // }
 }

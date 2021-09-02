@@ -166,14 +166,14 @@ nav {
 
 //css for the game area
 .start{
+	grid-column: span 12;
 	position: relative;
 	&::before{
 		content: "Press any key to start the game";
 		position: absolute;
-		@include grid(1, 1, 1fr);
+		@include flex(center, center, row);
 		font-size: 2rem;
-		place-items: center;
-		width : 100%;
+		width : 100vw;
 		height: 100%;
 		background : #5a7a5a;
 		z-index: 5;

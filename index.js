@@ -1,91 +1,31 @@
 // class bases approach to solve the problem
-class Matrix {
-    #board;
-    #spaces;
-    #over;
-    constructor() {
-        this.#board = [];
-        this.#spaces = 9;
-        this.#over = -1;
+const X = 'X', O = 'O', NONE = "";
 
-        for (let i = 0; i < 3; i++) this.#board.push(['', '', '']);
-    }
+BOARD = [[NONE, NONE, NONE],
+[NONE, NONE, NONE],
+[NONE, NONE, NONE]];
 
-    getSpaces = () => this.#spaces;
-
-    isOver = () => this.#over;
-
-    insert_to_board = (row, col, value) => {
-        this.#board[row][col] = value;
-        this.#spaces -= 1;
-
-        this.#over = this.#game_over(this.#board, row, col);
-    }
-
-    //function to determine if the array is equal
-    #areEqual(arr) {
-
-        return arr.every(v => v === arr[0]);
-    }
-
-    #game_over(m, row, col) {
-        let horizontal = this.#areEqual(m[row]);
-        if (horizontal) return 1;
-
-        let arr = [];
-        for (let i = 0; i < 3; i++) arr.push(m[i][col]);
-        let vertical = this.#areEqual(arr);
-        if (vertical) return 1;
-
-        let diagonal;
-        if (row === col) {
-            arr = [];
-            for (let i = 0; i < 3; i++) arr.push(m[i][i]);
-
-            diagonal = this.#areEqual(arr);
-
-            if (diagonal) return 1;
-        }
-        if ((row + col) === 2) {
-            arr = [];
-            for (let i = 0; i < 3; i++) arr.push(m[i][2 - i]);
-
-            diagonal = this.#areEqual(arr);
-
-            if (diagonal) return 1;
-        }
-
-        if (this.#spaces == 0) return 0;
-
-        return -1;
-    }
-
-};
-
-// Instantiating a board for game
-const board = new Matrix();
 
 //making some variables for the code
 let boardcolor = "#b8860b";
 let bordercolor = "#8b0000";
 let fillmode;
-let player1 = true;
 let vsComputer = false;
-let gameState = 'start';
+// let gameState = 'start';
 
-if (gameState === 'start')
-{
-    let section = document.querySelector('section');
-    section.classList.add('start');
-    window.addEventListener('keypress', (e) => {
-        section.classList.remove('start');
-        gameState = 'play';
-    })
-}
+// if (gameState === 'start')
+// {
+//     let section = document.querySelector('section');
+//     section.classList.add('start');
+//     window.addEventListener('keypress', (e) => {
+//         section.classList.remove('start');
+//         gameState = 'play';
+//     })
+// }
 
 // for changing the computer functionality option
-document.querySelector('.vscomputer').addEventListener('click', function(){
-    if (board.getSpaces() != 9) return;
+document.querySelector('.vscomputer').addEventListener('click', function () {
+    if (spaces(BOARD).length < 9) return;
     document.querySelector('.vscomputer span').classList.toggle('bg-red');
     vsComputer = !vsComputer;
 })
@@ -152,25 +92,26 @@ blocks.forEach(element => {
         if (element.hasChildNodes()) return;
 
         let add = document.createElement('p');
-        if (player1) {
-            add.innerText = '0';
-            h4.innerText = "Player2(X)'s turn";
+
+        let player = next_player(BOARD);
+        if (player == O) {
+            add.innerText = 'O';
+            h4.innerText = "Player1(X)'s turn";
         }
         else {
             add.innerText = 'X';
-            h4.innerText = "Player1(0)'s turn";
+            h4.innerText = "Player2(O)'s turn";
         }
 
-        player1 = !player1;
-
         element.append(add);
-        board.insert_to_board(get_row(element), get_col(element), element.innerText);
+        BOARD[get_row(element)][get_col(element)] = (element.innerText === 'X') ? X : O;
 
         let l = document.createElement('p');
         l.innerText = `${element.className} is filled with ${element.innerText}`;
         log.append(l);
-        if (gameover()) return;
-        if (vsComputer) computer_play();
+
+        if (Terminal(BOARD)) gameover();
+        if (vsComputer && next_player(BOARD) === O) computer_play();
     });
 });
 
@@ -178,19 +119,24 @@ blocks.forEach(element => {
 // function to finish the game
 function gameover() {
 
-    if (board.isOver() == 1) {
-        let winner;
-        if (player1) winner = "player2";
-        else winner = "player1";
+    let w;
+    if (Terminal(BOARD)) {
+        w = helper(BOARD);
+    }
+    else return 0;
+
+    if (w) {
+        if (w == -1) win = "player2";
+        else win = "player1";
         setTimeout(() => {
-            alert(`Congratulations! ${winner} has won the game\nRestart`);
+            alert(`Congratulations! ${win} has won the game\nRestart`);
             reset();
         }, 100);
 
         return 1;
     }
 
-    if (board.isOver() == 0) {
+    else {
         setTimeout(() => {
             alert(`The game ended in a tie\nRestart`);
             reset();
@@ -198,8 +144,6 @@ function gameover() {
 
         return 1;
     }
-
-    return 0;
 
 }
 
@@ -228,36 +172,164 @@ const get_col = box => {
 }
 
 // Adding functinality for players to play versus computers
-let sp = 4;
 const computer_play = () => {
-    if (player1) return;
 
     computer_choice();
-    player1 = !player1;
-
     h4.innerText = "Player1(0)'s turn";
-
-
-    if(gameover()) return;
-
 }
 computer_choice = () => {
 
     // if (!sp) return 0;
 
-    let row = parseInt(Math.random() * 3);
-    let col = parseInt(Math.random() * 3);
+    let action = minimax(BOARD)
+    let row = action[0];
+    let col = action[1];
 
-    let cl = (row+1).toString();
+    let cl = (row + 1).toString();
     let bl = document.getElementsByClassName(cl)[col];
     if (bl.hasChildNodes()) computer_choice();
     else {
-        board.insert_to_board(row, col, 'X');
-        bl.innerHTML = '<p>X</p>';
+        BOARD[row][col] = O;
+        bl.innerHTML = '<p>O</p>';
         let l = document.createElement('p');
         l.innerText = `${bl.className} selected is filled with ${bl.innerText}`;
         log.append(l);
     }
 
-    // sp--;
+}
+
+
+// Making a good AI for our game
+const next_player = b => {
+
+    let count_x = 0, count_o = 0;
+
+    b.forEach(e => {
+        e.forEach(f => {
+            if (f === X) count_x++;
+            else if (f === O) count_o++;
+        })
+    })
+
+    if (count_x === count_o) return X;
+    else return O;
+}
+
+const winner = b => {
+
+    // Horizontal checking
+    for (let i = 0; i < 3; i++) {
+        if (b[i][0] === b[i][1] && b[i][1] === b[i][2]) {
+            if (b[i][0] !== NONE) return b[i][0];
+        }
+    }
+
+    // Vertical checking
+    for (let i = 0; i < 3; i++) {
+        if (b[0][i] === b[1][i] && b[1][i] === b[2][i]) {
+            if (b[0][i] !== NONE) return b[0][i];
+        }
+    }
+
+    // Diagonal checking
+    if (b[0][0] === b[1][1] && b[1][1] === b[2][2]) if (b[0][0] !== NONE) return b[0][0];
+    if (b[0][2] === b[1][1] && b[1][1] === b[2][0]) if (b[1][1] !== NONE) return b[1][1];
+
+    return -1;
+}
+
+const Terminal = b => {
+
+    if (winner(b) !== -1) return true;
+
+    for (let i = 0; i < 3; i++)
+        for (let j = 0; j < 3; j++) if (b[i][j] === NONE) return false;
+
+    return true;
+}
+
+const helper = b => {
+    let w = winner(b);
+
+    if (w === X) return 1;
+    else if (w === O) return -1;
+    else return 0;
+}
+
+const spaces = b => {
+
+    let mySet = [];
+
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            if (b[i][j] === NONE) {
+                let pt = [i, j];
+                mySet.push(pt);
+            }
+        }
+
+    }
+
+    return mySet;
+}
+
+const result = (b, a) => {
+
+    b[a[0]][a[1]] = next_player(b);
+
+    return b;
+}
+
+// In javascript all arguments are passed by value 
+// means that the actual value will not change if we pass something as an argument in a function
+const max_value = b => {
+
+    if (Terminal(b)) return helper(b);
+
+    let s = spaces(b);
+
+    let v = -1;
+    s.forEach(element => {
+
+        v = Math.max(v, min_value(result(b, element)));
+        b[element[0]][element[1]] = NONE;
+    });
+
+    return v;
+}
+
+const min_value = b => {
+
+    if (Terminal(b)) return helper(b);
+
+    let s = spaces(b);
+
+    let v = 1;
+    s.forEach(element => {
+
+        v = Math.min(v, max_value(result(b, element)));
+        b[element[0]][element[1]] = NONE;
+    });
+
+    return v;
+}
+
+const minimax = b => {
+    let actions = spaces(b);
+    let l = [];
+    for (let action of actions)
+    {
+        l.push([action, max_value(result(b, action))]);
+        b[action[0]][action[1]] = NONE;
+    }
+    let m_v = l[0][1], ans = l[0][0];
+    for (let ob of l) {
+        if (ob[1] < m_v) {
+            ans = ob[0]
+            m_v = ob[1]
+        }
+    }
+
+    return ans
+    // }
 }

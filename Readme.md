@@ -10,6 +10,7 @@ bot(computer).
 ![Stars Badge](https://img.shields.io/github/stars/Rishikesh-kumar-7258/Tic-Tac-Toe?style=flat-square)
 ![Issues Badge](https://img.shields.io/github/issues/Rishikesh-kumar-7258/Tic-Tac-Toe?style=flat-square)
 ![Issues Badge](https://img.shields.io/github/issues-pr/Rishikesh-kumar-7258/Tic-Tac-Toe?style=flat-square)
+![Lines of code](https://img.shields.io/tokei/lines/github/Rishikesh-kumar-7258/Tic-Tac-Toe?style=flat-square)
 
 ## Languages used
 <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5"

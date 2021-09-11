@@ -220,26 +220,26 @@ section {
 
 		.block {
 			box-sizing: border-box;
-			background-color: darkgoldenrod;
+			background-color: #000;
 			border: 2px solid darkred;
-			border-radius: 1rem;
+			// border-radius: 1rem;
 			display: grid;
 			place-items: center;
 			font-size: 3em;
 			color: $fontclr;
 			box-shadow: 3px 3px 5px black;
 			@include shadow(2px, 4px, blue, blue, true);
-			transform: rotate(45deg);
-			P {
-				transform: rotate(-45deg);
-			}
+			// transform: rotate(45deg);
+			// P {
+			// 	transform: rotate(-45deg);
+			// }
 		}
 		.selected {
 			background: green;
 		}
 
 		.block:hover {
-			transform: scale(1.1) rotate(45deg);
+			transform: scale(1.01);
 		}
 	}
 }

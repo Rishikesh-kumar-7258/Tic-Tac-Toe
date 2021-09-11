@@ -321,9 +321,8 @@ section #board {
 section #board .block {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  background-color: darkgoldenrod;
+  background-color: #000;
   border: 2px solid darkred;
-  border-radius: 1rem;
   display: -ms-grid;
   display: grid;
   place-items: center;
@@ -332,13 +331,6 @@ section #board .block {
   -webkit-box-shadow: 3px 3px 5px black;
           box-shadow: 3px 3px 5px black;
   text-shadow: 2px 2px 4px blue, 2px 2px 4px blue, 2px 2px 4px blue, 2px 2px 4px blue, 2px 2px 4px blue, 2px 2px 4px blue;
-  -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
-}
-
-section #board .block P {
-  -webkit-transform: rotate(-45deg);
-          transform: rotate(-45deg);
 }
 
 section #board .selected {
@@ -346,8 +338,8 @@ section #board .selected {
 }
 
 section #board .block:hover {
-  -webkit-transform: scale(1.1) rotate(45deg);
-          transform: scale(1.1) rotate(45deg);
+  -webkit-transform: scale(1.01);
+          transform: scale(1.01);
 }
 
 section#log {

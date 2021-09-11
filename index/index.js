@@ -51,7 +51,7 @@ $(function()
         {
             if(player1)
             {
-                this.innerText = '1';
+                this.innerText = 'X';
                 player1 = false;
                 $('aside').append('<p>player1 filled</p>');
             }

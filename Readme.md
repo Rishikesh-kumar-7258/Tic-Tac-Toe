@@ -59,10 +59,3 @@ A classic browser-based **Tic‑Tac‑Toe** game crafted with **HTML, CSS, and J
   Some community implementations, especially in React or React Native, integrate features like move history tracking, state management, and mobile-friendly layouts—demonstrating broader architectural possibilities.
 
 ---
-
-##  Summary
-
-Your Tic‑Tac‑Toe project stands out through its interactive AI mode layered onto a well-structured UI and game logic foundation. It offers both educational value and practical fun for users, while providing a solid basis for future enhancements.
-
-Let me know if you'd like support implementing Minimax AI, adjustable difficulty settings, or move history features—I'd be happy to help!
-::contentReference[oaicite:0]{index=0}

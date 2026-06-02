@@ -4,59 +4,318 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Name : Tic-tac-toe Game, published by : Rishikesh Kumar | This is just a project showcase for beginners">
+    <meta name="description" content="Tic-tac-toe Game by Rishikesh Kumar — a beginner project showcase">
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
-    <!-- included our stylesheetfile -->
-    <link rel="stylesheet" href="index.css">
-    <title>Game | Tic-Tac-Toe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Tic-Tac-Toe</title>
+    <style>
+        /* Entry animations for the title */
+        @keyframes slide-left {
+            from {
+                transform: translateX(-40vw) rotate(0deg);
+            }
+
+            to {
+                transform: translateX(0) rotate(720deg);
+            }
+        }
+
+        @keyframes slide-right {
+            from {
+                transform: translateX(40vw) rotate(0deg);
+            }
+
+            to {
+                transform: translateX(0) rotate(-720deg);
+            }
+        }
+
+        @keyframes slide-down {
+            from {
+                transform: translateY(-40vh);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .anim-left {
+            animation: slide-left 1s linear 0.2s both;
+        }
+
+        .anim-right {
+            animation: slide-right 1s linear 0.2s both;
+        }
+
+        .anim-down {
+            animation: slide-down 1.6s ease-in 0.2s both;
+        }
+
+        /* Board grid — fixed sizes needed for JS coordinate mapping */
+        html {
+            overflow: hidden;
+        }
+
+        /* Theme tokens — overridden by applyTheme() in JS */
+        :root {
+            --board-bg:              #1e1b4b;
+            --board-border:          #4c1d95;
+            --board-hover-bg:        #312e81;
+            --board-hover-border:    #7c3aed;
+            --board-hover-glow:      rgba(124, 58, 237, 0.45);
+            --board-selected-border: #a78bfa;
+            --board-selected-glow:   rgba(167, 139, 250, 0.55);
+            --log-hl-bg:             rgba(124, 58, 237, 0.1);
+            --log-hl-border:         #7c3aed;
+            --log-hl-color:          #c4b5fd;
+        }
+
+        #board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 10px;
+        }
+
+        #board .block {
+            background: var(--board-bg);
+            border: 2px solid var(--board-border);
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+            user-select: none;
+        }
+
+        #board .block:hover {
+            background: var(--board-hover-bg);
+            border-color: var(--board-hover-border);
+            transform: scale(1.05);
+            box-shadow: 0 0 22px var(--board-hover-glow);
+        }
+
+        #board .block.selected {
+            border-color: var(--board-selected-border);
+            box-shadow: 0 0 28px var(--board-selected-glow);
+        }
+
+        #board .block.inactive {
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        /* X = red, O = blue — classes added by JS */
+        .mark-x {
+            color: #f87171;
+            text-shadow: 0 0 22px rgba(248, 113, 113, 0.9);
+        }
+
+        .mark-o {
+            color: #60a5fa;
+            text-shadow: 0 0 22px rgba(96, 165, 250, 0.9);
+        }
+
+        /* VS Computer status dot — toggled by JS via .bg-red class */
+        .vscomputer span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #22c55e;
+            /* green = computer ON */
+            transition: background 0.25s;
+        }
+
+        .vscomputer span.bg-red {
+            background: #ef4444;
+        }
+
+        /* red = computer OFF */
+
+        /* Log entries appended by JS */
+        #log p {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            color: #64748b;
+            border-left: 2px solid #1e293b;
+        }
+
+        #log p:last-child {
+            color: var(--log-hl-color);
+            border-left-color: var(--log-hl-border);
+            background: var(--log-hl-bg);
+        }
+
+        @media (max-width: 480px) {
+            #board {
+                grid-template-columns: repeat(3, 88px);
+                grid-template-rows: repeat(3, 88px);
+                gap: 7px;
+            }
+
+            #board .block {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 
-<body>
-    <header>
-        <h1><span class="red">Tic</span> <span class="yellow">- Tac -</span><span class="blue">Toe</span></h1>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white">
+
+    <!-- Header -->
+    <header class="py-8 text-center select-none">
+        <h1 class="text-6xl md:text-7xl font-black tracking-tight flex justify-center items-center gap-3">
+            <span class="anim-left text-red-400" style="text-shadow:0 0 30px rgba(248,113,113,0.7)">Tic</span>
+            <span class="anim-down text-yellow-400" style="text-shadow:0 0 30px rgba(250,204,21,0.7)">-Tac-</span>
+            <span class="anim-right text-blue-400" style="text-shadow:0 0 30px rgba(96,165,250,0.7)">Toe</span>
+        </h1>
+        <p class="mt-2 text-xs font-semibold tracking-[0.35em] uppercase text-slate-500">
+            Classic Strategy Game
+        </p>
     </header>
-    <!-- We can change the settings from here  -->
-    <nav>
-        <div id="settings" title="choose the color and click on set board/border to change the respective color">
-            <button class="drop-button">
-                <h3>Change color</h3>
+
+    <!-- Controls -->
+    <nav class="flex items-center justify-between max-w-2xl mx-auto px-6 mb-8 gap-4">
+
+        <!-- Color picker -->
+        <div id="settings" class="relative group" title="Choose a color, then click Set Board or Set Border">
+            <button class="drop-button flex items-center gap-2 px-4 py-2 rounded-full
+                           bg-white/10 hover:bg-white/15 border border-white/15
+                           text-sm font-medium transition-colors backdrop-blur-md">
+                <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                </svg>
+                Theme
             </button>
-            <div id="dropdown">
-                <input type="color" name="color" id="color">
-                <div id="buttons">
-                    <button onclick="setcolor()">Set Board</button>
-                    <button onclick="setborder()">Set Border</button>
+            <div id="dropdown" class="hidden group-hover:flex flex-col gap-3 absolute top-full left-0 mt-2 p-4
+                        w-52 bg-slate-800/95 border border-white/10 rounded-2xl shadow-2xl z-20
+                        backdrop-blur-md">
+
+                <!-- Preset themes -->
+                <span class="text-[11px] font-semibold tracking-widest uppercase text-slate-500">Presets</span>
+                <div class="grid grid-cols-3 gap-x-2 gap-y-3">
+                    <button onclick="applyTheme('nebula')" class="flex flex-col items-center gap-1">
+                        <span id="swatch-nebula" class="theme-swatch w-10 h-10 rounded-full border-2 border-white/20 hover:border-white/70 hover:scale-110 transition-all block ring-2 ring-white/70 ring-offset-1 ring-offset-slate-800"
+                              style="background:linear-gradient(135deg,#4c1d95,#7c3aed)"></span>
+                        <span class="text-[10px] text-slate-400">Nebula</span>
+                    </button>
+                    <button onclick="applyTheme('ocean')" class="flex flex-col items-center gap-1">
+                        <span id="swatch-ocean" class="theme-swatch w-10 h-10 rounded-full border-2 border-white/20 hover:border-white/70 hover:scale-110 transition-all block"
+                              style="background:linear-gradient(135deg,#0e7490,#22d3ee)"></span>
+                        <span class="text-[10px] text-slate-400">Ocean</span>
+                    </button>
+                    <button onclick="applyTheme('ember')" class="flex flex-col items-center gap-1">
+                        <span id="swatch-ember" class="theme-swatch w-10 h-10 rounded-full border-2 border-white/20 hover:border-white/70 hover:scale-110 transition-all block"
+                              style="background:linear-gradient(135deg,#9a3412,#fb923c)"></span>
+                        <span class="text-[10px] text-slate-400">Ember</span>
+                    </button>
+                    <button onclick="applyTheme('forest')" class="flex flex-col items-center gap-1">
+                        <span id="swatch-forest" class="theme-swatch w-10 h-10 rounded-full border-2 border-white/20 hover:border-white/70 hover:scale-110 transition-all block"
+                              style="background:linear-gradient(135deg,#166534,#4ade80)"></span>
+                        <span class="text-[10px] text-slate-400">Forest</span>
+                    </button>
+                    <button onclick="applyTheme('midnight')" class="flex flex-col items-center gap-1">
+                        <span id="swatch-midnight" class="theme-swatch w-10 h-10 rounded-full border-2 border-white/20 hover:border-white/70 hover:scale-110 transition-all block"
+                              style="background:linear-gradient(135deg,#1e3a8a,#93c5fd)"></span>
+                        <span class="text-[10px] text-slate-400">Midnight</span>
+                    </button>
+                    <button onclick="applyTheme('sakura')" class="flex flex-col items-center gap-1">
+                        <span id="swatch-sakura" class="theme-swatch w-10 h-10 rounded-full border-2 border-white/20 hover:border-white/70 hover:scale-110 transition-all block"
+                              style="background:linear-gradient(135deg,#9f1239,#fb7185)"></span>
+                        <span class="text-[10px] text-slate-400">Sakura</span>
+                    </button>
+                </div>
+
+                <!-- Divider -->
+                <div class="border-t border-white/10"></div>
+
+                <!-- Custom color picker -->
+                <span class="text-[11px] font-semibold tracking-widest uppercase text-slate-500">Custom</span>
+                <input type="color" id="color" name="color"
+                    class="w-full h-10 cursor-pointer rounded-xl border-0 bg-transparent">
+                <div id="buttons" class="flex flex-col gap-1.5">
+                    <button onclick="setcolor()" class="py-1.5 text-xs font-semibold rounded-lg transition-colors
+                                   bg-violet-600 hover:bg-violet-500">
+                        Set Board
+                    </button>
+                    <button onclick="setborder()" class="py-1.5 text-xs font-semibold rounded-lg transition-colors
+                                   bg-indigo-600 hover:bg-indigo-500">
+                        Set Border
+                    </button>
                 </div>
             </div>
         </div>
-        <button class="vscomputer" title="Click here play vs computer">Vs Computer <span class="bg-red"></span></button>
+
+        <!-- VS Computer toggle -->
+        <button class="vscomputer flex items-center gap-2.5 px-5 py-2 rounded-full
+                       bg-white/10 hover:bg-white/15 border border-white/15
+                       text-sm font-semibold transition-colors backdrop-blur-md" title="Toggle AI opponent">
+            VS Computer
+            <span class="bg-red"></span>
+        </button>
     </nav>
 
-    <!-- the game board -->
-    <section>
-        <div id="board">
-            <div class="block a 1"></div>
-            <div class="block b 1"></div>
-            <div class="block c 1"></div>
-            <div class="block a 2"></div>
-            <div class="block b 2"></div>
-            <div class="block c 2"></div>
-            <div class="block a 3"></div>
-            <div class="block b 3"></div>
-            <div class="block c 3"></div>
-        </div>
-        <div id="fill_opt">
-            <h4 title="Shows current turn">Player1(X)'s turn</h4>
-            <button onclick="reset()" title="It will restart the game">Reset board</button>
-        </div>
+    <!-- Game area -->
+    <main class="flex flex-col lg:flex-row gap-8 justify-center items-start
+                 max-w-4xl mx-auto px-6 pb-16">
 
-    </section>
-    
-    <!-- logging section -->
-    <section id="log">
-        <h1 title="All logs written below">Logs</h1>
-    </section>
+        <!-- Board + status -->
+        <section class="flex flex-col items-center gap-5 w-full lg:w-auto">
+
+            <div id="board" class="p-5 rounded-3xl bg-slate-900/70 border border-white/10
+                        shadow-2xl backdrop-blur-sm">
+                <div class="block a 1"></div>
+                <div class="block b 1"></div>
+                <div class="block c 1"></div>
+                <div class="block a 2"></div>
+                <div class="block b 2"></div>
+                <div class="block c 2"></div>
+                <div class="block a 3"></div>
+                <div class="block b 3"></div>
+                <div class="block c 3"></div>
+            </div>
+
+            <div id="fill_opt" class="flex flex-col items-center gap-3 w-full max-w-[340px]">
+                <div class="w-full px-5 py-3 rounded-2xl bg-white/5 border border-white/10 text-center">
+                    <p class="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-500 mb-1">
+                        Current Turn
+                    </p>
+                    <h4 class="text-lg font-bold text-yellow-300">Player1(X)'s turn</h4>
+                </div>
+                <button onclick="reset()" class="w-full py-2.5 rounded-2xl font-semibold text-sm transition-all
+                               bg-rose-500/10 hover:bg-rose-500/25
+                               text-rose-400 hover:text-rose-300
+                               border border-rose-500/20 hover:border-rose-500/40" title="Restart the game">
+                    ↺ &nbsp;Reset Board
+                </button>
+            </div>
+        </section>
+
+        <!-- Game log -->
+        <section class="flex-1 min-w-0 w-full">
+            <div class="rounded-3xl bg-slate-900/70 border border-white/10
+                        overflow-hidden shadow-2xl backdrop-blur-sm">
+                <div class="flex items-center gap-2.5 px-5 py-3.5 border-b border-white/10 bg-white/5">
+                    <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    <h2 class="text-sm font-bold tracking-wide text-slate-200">Game Log</h2>
+                </div>
+                <!-- JS appends <p> elements here via getElementById("log") -->
+                <div id="log" class="p-4 h-72 overflow-y-auto flex flex-col gap-0.5 scroll-smooth">
+                </div>
+            </div>
+        </section>
+    </main>
+
 </body>
 <script src="index.js"></script>
 

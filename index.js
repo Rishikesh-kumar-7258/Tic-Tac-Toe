@@ -7,8 +7,8 @@ BOARD = [[NONE, NONE, NONE],
 
 
 //making some variables for the code
-let boardcolor = "#b8860b";
-let bordercolor = "#8b0000";
+let boardcolor = "#1e1b4b";  // kept in sync with active theme's --board-bg
+let bordercolor = "#4c1d95"; // kept in sync with active theme's --board-border
 let fillmode;
 let vsComputer = false;
 // let gameState = 'start';
@@ -96,10 +96,12 @@ blocks.forEach(element => {
         let player = next_player(BOARD);
         if (player == O) {
             add.innerText = 'O';
+            add.className = 'mark-o';
             h4.innerText = "Player1(X)'s turn";
         }
         else {
             add.innerText = 'X';
+            add.className = 'mark-x';
             h4.innerText = "Player2(O)'s turn";
         }
 
@@ -191,7 +193,7 @@ computer_choice = () => {
     if (bl.hasChildNodes()) computer_choice();
     else {
         BOARD[row][col] = O;
-        bl.innerHTML = '<p>O</p>';
+        bl.innerHTML = '<p class="mark-o">O</p>';
         let l = document.createElement('p');
         l.innerText = `${bl.className} selected is filled with ${bl.innerText}`;
         log.append(l);
@@ -332,4 +334,105 @@ const minimax = b => {
     }
 
     return ans
+}
+
+// ── Themes ────────────────────────────────────────────────────────────────────
+
+const themes = {
+    nebula: {
+        name: 'Nebula',
+        board: '#1e1b4b', border: '#4c1d95',
+        hoverBg: '#312e81', hoverBorder: '#7c3aed',
+        hoverGlow: 'rgba(124,58,237,0.45)',
+        selectedBorder: '#a78bfa', selectedGlow: 'rgba(167,139,250,0.55)',
+        logBg: 'rgba(124,58,237,0.1)', logBorder: '#7c3aed', logColor: '#c4b5fd',
+        bodyBg: 'linear-gradient(135deg,#0f172a 0%,#1e1040 50%,#0f172a 100%)',
+    },
+    ocean: {
+        name: 'Ocean',
+        board: '#0c1a2e', border: '#0e7490',
+        hoverBg: '#0c4a6e', hoverBorder: '#0891b2',
+        hoverGlow: 'rgba(8,145,178,0.45)',
+        selectedBorder: '#22d3ee', selectedGlow: 'rgba(34,211,238,0.55)',
+        logBg: 'rgba(8,145,178,0.1)', logBorder: '#0891b2', logColor: '#67e8f9',
+        bodyBg: 'linear-gradient(135deg,#0a1628 0%,#0c2a3a 50%,#0a1628 100%)',
+    },
+    ember: {
+        name: 'Ember',
+        board: '#2a1008', border: '#9a3412',
+        hoverBg: '#3d1a0e', hoverBorder: '#c2410c',
+        hoverGlow: 'rgba(194,65,12,0.45)',
+        selectedBorder: '#fb923c', selectedGlow: 'rgba(251,146,60,0.55)',
+        logBg: 'rgba(194,65,12,0.1)', logBorder: '#c2410c', logColor: '#fdba74',
+        bodyBg: 'linear-gradient(135deg,#0f0a0a 0%,#2a1008 50%,#0f0a0a 100%)',
+    },
+    forest: {
+        name: 'Forest',
+        board: '#0a1f0f', border: '#166534',
+        hoverBg: '#14532d', hoverBorder: '#15803d',
+        hoverGlow: 'rgba(21,128,61,0.45)',
+        selectedBorder: '#4ade80', selectedGlow: 'rgba(74,222,128,0.55)',
+        logBg: 'rgba(21,128,61,0.1)', logBorder: '#15803d', logColor: '#86efac',
+        bodyBg: 'linear-gradient(135deg,#060e06 0%,#0a1f0f 50%,#060e06 100%)',
+    },
+    midnight: {
+        name: 'Midnight',
+        board: '#0d0d14', border: '#1e3a8a',
+        hoverBg: '#172554', hoverBorder: '#1d4ed8',
+        hoverGlow: 'rgba(29,78,216,0.45)',
+        selectedBorder: '#60a5fa', selectedGlow: 'rgba(96,165,250,0.55)',
+        logBg: 'rgba(29,78,216,0.1)', logBorder: '#1d4ed8', logColor: '#93c5fd',
+        bodyBg: 'linear-gradient(135deg,#000000 0%,#0d0d14 50%,#000000 100%)',
+    },
+    sakura: {
+        name: 'Sakura',
+        board: '#1f0a14', border: '#9f1239',
+        hoverBg: '#3b0f23', hoverBorder: '#be123c',
+        hoverGlow: 'rgba(190,18,60,0.45)',
+        selectedBorder: '#fb7185', selectedGlow: 'rgba(251,113,133,0.55)',
+        logBg: 'rgba(190,18,60,0.1)', logBorder: '#be123c', logColor: '#fda4af',
+        bodyBg: 'linear-gradient(135deg,#0f0a0f 0%,#1f0a14 50%,#0f0a0f 100%)',
+    },
+};
+
+function applyTheme(name) {
+    const t = themes[name];
+    if (!t) return;
+
+    const root = document.documentElement;
+    root.style.setProperty('--board-bg',              t.board);
+    root.style.setProperty('--board-border',          t.border);
+    root.style.setProperty('--board-hover-bg',        t.hoverBg);
+    root.style.setProperty('--board-hover-border',    t.hoverBorder);
+    root.style.setProperty('--board-hover-glow',      t.hoverGlow);
+    root.style.setProperty('--board-selected-border', t.selectedBorder);
+    root.style.setProperty('--board-selected-glow',   t.selectedGlow);
+    root.style.setProperty('--log-hl-bg',             t.logBg);
+    root.style.setProperty('--log-hl-border',         t.logBorder);
+    root.style.setProperty('--log-hl-color',          t.logColor);
+
+    document.body.style.background = t.bodyBg;
+
+    // Clear inline styles set by custom color picker so CSS vars take effect
+    const allBlocks = document.getElementsByClassName('block');
+    for (let b of allBlocks) {
+        b.style.backgroundColor = '';
+        b.style.borderColor = '';
+    }
+
+    boardcolor = t.board;
+    bordercolor = t.border;
+
+    // Update active swatch ring
+    document.querySelectorAll('.theme-swatch').forEach(s => {
+        s.classList.remove('ring-2', 'ring-white/70', 'ring-offset-1', 'ring-offset-slate-800');
+    });
+    const activeSwatch = document.getElementById(`swatch-${name}`);
+    if (activeSwatch) {
+        activeSwatch.classList.add('ring-2', 'ring-white/70', 'ring-offset-1', 'ring-offset-slate-800');
+    }
+
+    let l = document.createElement('p');
+    l.innerText = `Theme changed to ${t.name}`;
+    log.append(l);
 }
